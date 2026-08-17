@@ -1,0 +1,1 @@
+<h1>Painel {{ $user->tenant?->display_name ?? 'Master' }}</h1><p>Nova plataforma em homologação.</p><a href="{{ route('admin.domains.index') }}">Domínios do site</a><form method="post" action="{{ route('logout') }}">@csrf<button>Sair</button></form>
