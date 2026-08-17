@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
+use App\Services\DomainVerificationService;
 
 class TenantDomainController extends Controller
 {
@@ -29,5 +30,11 @@ class TenantDomainController extends Controller
 
         $tenant->domains()->create(['host' => $host, 'kind' => 'custom', 'status' => 'pending', 'verification_token' => Str::random(48)]);
         return back()->with('status', 'Domínio cadastrado. Configure o DNS antes da verificação.');
+    }
+
+    public function verify(TenantDomain $domain, DomainVerificationService $verifier): RedirectResponse
+    {
+        abort_unless($domain->tenant_id === auth()->user()->tenant_id, 404);
+        return back()->with('status', $verifier->verify($domain) ? 'DNS confirmado. Domínio ativado.' : 'Registro TXT ainda não foi localizado. Aguarde a propagação do DNS e tente novamente.');
     }
 }
