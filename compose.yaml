@@ -5,6 +5,10 @@ services:
     command: php artisan serve --host=0.0.0.0 --port=8000
     restart: unless-stopped
     networks: [shared]
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == Automacao360
     labels:
       - traefik.enable=true
       - traefik.docker.network=${SHARED_NETWORK:-360Network}
@@ -18,12 +22,20 @@ services:
     command: php artisan queue:work --sleep=1 --tries=3 --max-time=3600
     restart: unless-stopped
     networks: [shared]
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == Automacao360
   scheduler:
     image: ${PAROQUIAAQUI_IMAGE:?defina PAROQUIAAQUI_IMAGE}
     env_file: .env
     command: php artisan schedule:work
     restart: unless-stopped
     networks: [shared]
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == Automacao360
 
 networks:
   shared:
