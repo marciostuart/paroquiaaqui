@@ -9,13 +9,6 @@ services:
       placement:
         constraints:
           - node.hostname == Automacao360
-    labels:
-      - traefik.enable=true
-      - traefik.docker.network=${SHARED_NETWORK:-360Network}
-      - traefik.http.routers.paroquiaaqui-v2.rule=Host(`${APP_HOST:-v2.paroquiaaqui.com.br}`)
-      - traefik.http.routers.paroquiaaqui-v2.entrypoints=websecure
-      - traefik.http.routers.paroquiaaqui-v2.tls=true
-      - traefik.http.services.paroquiaaqui-v2.loadbalancer.server.port=8000
   worker:
     image: ${PAROQUIAAQUI_IMAGE:?defina PAROQUIAAQUI_IMAGE}
     env_file: .env
@@ -26,6 +19,13 @@ services:
       placement:
         constraints:
           - node.hostname == Automacao360
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=${SHARED_NETWORK:-360Network}
+        - traefik.http.routers.paroquiaaqui-v2.rule=Host(`${APP_HOST:-v2.paroquiaaqui.com.br}`)
+        - traefik.http.routers.paroquiaaqui-v2.entrypoints=websecure
+        - traefik.http.routers.paroquiaaqui-v2.tls=true
+        - traefik.http.services.paroquiaaqui-v2.loadbalancer.server.port=8000
   scheduler:
     image: ${PAROQUIAAQUI_IMAGE:?defina PAROQUIAAQUI_IMAGE}
     env_file: .env
