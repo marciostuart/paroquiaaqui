@@ -27,8 +27,7 @@ class TenantResolutionTest extends TestCase
             'verification_token' => str()->random(64),
         ]);
 
-        $this->withServerVariables(['HTTP_HOST' => 'paroquia-piloto.v2.paroquiaaqui.com.br'])
-            ->get('/')
+        $this->get('http://paroquia-piloto.v2.paroquiaaqui.com.br/')
             ->assertOk()
             ->assertSee('Paróquia Piloto');
     }
