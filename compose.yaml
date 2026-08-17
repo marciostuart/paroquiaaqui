@@ -7,7 +7,7 @@ services:
     networks: [shared]
     labels:
       - traefik.enable=true
-      - traefik.docker.network=${SHARED_NETWORK:-automacao360bh}
+      - traefik.docker.network=${SHARED_NETWORK:-360Network}
       - traefik.http.routers.paroquiaaqui-v2.rule=Host(`${APP_HOST:-v2.paroquiaaqui.com.br}`)
       - traefik.http.routers.paroquiaaqui-v2.entrypoints=websecure
       - traefik.http.routers.paroquiaaqui-v2.tls=true
@@ -27,5 +27,5 @@ services:
 
 networks:
   shared:
-    name: ${SHARED_NETWORK:-automacao360bh}
+    name: ${SHARED_NETWORK:-360Network}
     external: true
