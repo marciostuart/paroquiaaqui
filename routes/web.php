@@ -4,6 +4,7 @@ use App\Http\Controllers\PublicSiteController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TenantDomainController;
+use App\Http\Controllers\Admin\SiteProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PublicSiteController::class, 'show'])->name('site.home');
@@ -18,6 +19,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/dominios', [TenantDomainController::class, 'index'])->name('admin.domains.index');
     Route::post('/dominios', [TenantDomainController::class, 'store'])->name('admin.domains.store');
     Route::post('/dominios/{domain}/verificar', [TenantDomainController::class, 'verify'])->name('admin.domains.verify');
+    Route::get('/site', [SiteProfileController::class, 'edit'])->name('admin.site.edit');
+    Route::put('/site', [SiteProfileController::class, 'update'])->name('admin.site.update');
 });
 
 // Compatibilidade com o portal PHP atual: /{slug} continua abrindo o tenant.
