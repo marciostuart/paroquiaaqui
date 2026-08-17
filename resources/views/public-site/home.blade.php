@@ -21,8 +21,9 @@
     <main>
         <section>
             <h2>Bem-vindo</h2>
-            <p class="notice">Esta paróquia está sendo preparada na nova plataforma Paróquia Aqui.</p>
+            <p>{{ $profile?->about ?: 'Esta paróquia está sendo preparada na nova plataforma Paróquia Aqui.' }}</p>
         </section>
+        @if($masses->isNotEmpty())<section><h2>Horários das Missas</h2>@foreach($masses as $mass)<p><strong>{{ $mass->community_name }}</strong><br>{{ $mass->schedule }}@if($mass->address)<br>{{ $mass->address }}@endif</p>@endforeach</section>@endif
     </main>
 </body>
 </html>
