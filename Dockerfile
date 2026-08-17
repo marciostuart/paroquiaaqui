@@ -1,6 +1,6 @@
 FROM composer:2 AS dependencies
 WORKDIR /app
-COPY composer.json ./
+COPY composer.json composer.lock ./
 RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader --no-scripts
 
 FROM php:8.3-cli-alpine
