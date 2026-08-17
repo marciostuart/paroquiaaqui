@@ -32,6 +32,8 @@ Após migrar o banco, crie um tenant de teste com `php artisan tenant:create par
 
 Crie uma Stack a partir deste repositório, forneça as variáveis de ambiente como segredos e conecte-a às redes já existentes do PostgreSQL, MinIO e proxy reverso. Execute `php artisan migrate --force` como tarefa única antes de iniciar o worker.
 
+Na homologação, defina `APP_HOST=v2.paroquiaaqui.com.br` e `SHARED_NETWORK` como o nome real da rede Docker compartilhada pelo Traefik, PostgreSQL e MinIO. A Stack não publica portas diretamente: o Traefik termina o TLS e encaminha para a aplicação na porta 8000.
+
 O arquivo `compose.yaml` não cria banco nem bucket: ele consome os serviços já mantidos na VPS. A publicação externa, DNS e TLS só serão configurados após os testes locais e de homologação.
 
 ## Migração legada
