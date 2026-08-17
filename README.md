@@ -26,6 +26,8 @@ Para um domínio próprio, o painel irá gerar um token e instruções DNS. O do
 
 Nunca versione `.env`, credenciais Asaas/Evolution/MinIO, dumps de produção ou documentos de fiéis.
 
+Após migrar o banco, crie um tenant de teste com `php artisan tenant:create paroquia-piloto "Paróquia Piloto" admin@exemplo.test` e informe a senha somente no prompt seguro.
+
 ## Portainer
 
 Crie uma Stack a partir deste repositório, forneça as variáveis de ambiente como segredos e conecte-a às redes já existentes do PostgreSQL, MinIO e proxy reverso. Execute `php artisan migrate --force` como tarefa única antes de iniciar o worker.
