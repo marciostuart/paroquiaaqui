@@ -1,3 +1,3 @@
 <h1>Domínios do site</h1><p>Para cada domínio, crie no Cloudflare um registro TXT: <code>_paroquia-verificar.SEUDOMINIO</code> com o token mostrado.</p>@if(session('status'))<p>{{ session('status') }}</p>@endif
 <form method="post">@csrf<input name="host" placeholder="www.suaparoquia.org.br" required><button>Adicionar domínio</button></form>
-@foreach($domains as $domain)<section><strong>{{ $domain->host }}</strong> — {{ $domain->status }}<br><code>_paroquia-verificar.{{ $domain->host }} TXT {{ $domain->verification_token }}</code></section>@endforeach
+@foreach($domains as $domain)<section><strong>{{ $domain->host }}</strong> — {{ $domain->status }}<br><code>_paroquia-verificar.{{ $domain->host }} TXT {{ $domain->verification_token }}</code>@if($domain->status !== 'active')<form method="post" action="{{ route('admin.domains.verify', $domain) }}">@csrf<button>Verificar DNS</button></form>@endif</section>@endforeach

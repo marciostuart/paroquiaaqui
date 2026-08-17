@@ -17,6 +17,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', DashboardController::class)->name('admin.dashboard');
     Route::get('/dominios', [TenantDomainController::class, 'index'])->name('admin.domains.index');
     Route::post('/dominios', [TenantDomainController::class, 'store'])->name('admin.domains.store');
+    Route::post('/dominios/{domain}/verificar', [TenantDomainController::class, 'verify'])->name('admin.domains.verify');
 });
 
 // Compatibilidade com o portal PHP atual: /{slug} continua abrindo o tenant.
